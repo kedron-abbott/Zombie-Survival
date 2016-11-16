@@ -19,6 +19,8 @@ def invalid():
     print ("Invalid response. Please try again..")
     print breaker
 
+def clear():
+    os.system("clear")
 #Classes:
 #i wish i knew how to make these properly :( // it would probably help y'know
 
@@ -70,6 +72,7 @@ for response in range(100):
             print breaker
             if begin == "YES":
                 start = "BEGIN";
+                clear();
                 break
             elif begin == "NO":
                 print ("Okay...just start the game up when you're ready.\n\n");
