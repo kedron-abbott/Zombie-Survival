@@ -27,6 +27,14 @@ def newScene(x):
     sleep(x)
     clear()
 
+def slowPrint(text,speed):
+    for i in text:
+        sys.stdout.write(i)
+        sys.stdout.flush()
+        time.sleep(random.random()*10.0/speed)
+    print ''
+
+
 #Classes:
 #i wish i knew how to make these properly :( // it would probably help y'know
 

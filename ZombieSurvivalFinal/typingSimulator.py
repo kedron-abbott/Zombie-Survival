@@ -1,12 +1,12 @@
 import sys,time,random
 
 #mimics real person typing~
-typingSpeed = 50 #wpm
-def slowType(x):
-    for i in x:
+def slowType(text,speed):
+    for i in text:
         sys.stdout.write(i)
         sys.stdout.flush()
-        time.sleep(random.random()*10.0/typingSpeed)
+        time.sleep(random.random()*10.0/speed)
     print ''
 
-slowType("I have a very strong desire to understand people and why they think and behave the way they do, so I can improve myself, borrowing their better qualities.")
+slowType("Seven actual words about what??? \"...sure\" says Dustin",25)
+slowType("Seven actual words about what??? \"...sure\" says Dustin",75)
