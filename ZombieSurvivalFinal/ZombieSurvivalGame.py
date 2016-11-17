@@ -4,6 +4,7 @@ import sys
 import random
 import textwrap
 import datetime, time
+from time import sleep
 
 #Easy Repeatables
 breaker = ("\n--------------------------------------\n")
@@ -21,6 +22,11 @@ def invalid():
 
 def clear():
     os.system("clear")
+
+def newScene(x):
+    sleep(x)
+    clear()
+
 #Classes:
 #i wish i knew how to make these properly :( // it would probably help y'know
 
@@ -30,6 +36,17 @@ lockStatus = "locked"
 markStatus = "lost"
 doorStatus = "unknown"
 
+#difficulty
+
+easy = 25
+medium = 15
+hard = 8
+#default
+difficulty = medium
+
+stop = "go"
+start_time = datetime.datetime.now()
+end_time = start_time + datetime.timedelta(seconds=difficulty)
 
 
 #Weapon Accuracy || odd number = miss / even number = hit
@@ -44,7 +61,7 @@ FarRevolverAccuracy = [1,2,3,4,5] #40% Accuracy
 #Easy Access
     # closeShot = int(random.choice(closerange));
     # longShot = int(random.choice(longrange));
-    # for response in range(100):
+    # while True:
     # .upper().strip();
 
 # if (num % 2 == 0): ~ even
@@ -53,7 +70,7 @@ FarRevolverAccuracy = [1,2,3,4,5] #40% Accuracy
 
 #Start Screen
 
-for response in range(100):
+while True:
     print ("\nWelcome to Kedron's Zombie Survival Game.")
     print('''
 
@@ -64,10 +81,10 @@ for response in range(100):
      | |__| |  __/ | | | | | (_) |    \  /  __/ |  \__ \ | (_) | | | |  | |  _  | |_| |
      |_____/ \___|_| |_| |_|\___/      \/ \___|_|  |___/_|\___/|_| |_|  |_| (_)  \___/
     ''')
-    start = raw_input("\nHow would you like to start? Begin || Rules \n\nResponse: ").upper().strip()
+    start = raw_input("\nHow would you like to start? Begin || Rules || Mode \n\nResponse: ").upper().strip()
     print breaker
     if start == "RULES":
-        for response in range(100):
+        while True:
             begin = raw_input("Every decision you make is a life and death situation...and your time is limited. \nThe choices you make now determine your fate.  \n\nAre you ready to begin? yes || no\n\nResponse: ").upper().strip()
             print breaker
             if begin == "YES":
@@ -80,16 +97,44 @@ for response in range(100):
                 break
             else:
                 invalid()
+    elif start == "MODE":
+        clear()
+        print ("Please choose your difficulty. Easy | Medium | Hard")
+        while True:
+            mode = raw_input("\nResponse: ").upper().strip()
+            if mode == "EASY":
+                difficulty = easy
+                print difficulty
+                newScene(2)
+                break
+
+            elif mode == "HARD":
+                difficulty = hard
+                print difficulty
+                newScene(5)
+                break
+
+            elif mode == "MED" or "MEDIUM":
+                difficulty = medium
+                print difficulty
+                newScene(3)
+                break
+
+            else:
+                invalid()
+
+
     elif start == "STATS":
         print ("****all this info is inaccurate for current update***")
         print ("Bat Accuracy: [80% Close Range; 0% Far Range]")
         print ("Hunting Rifle Accuracy: [44% Close Range; 86% Far Range]")
         print ("Revolver Accuracy: [80% Close Range; 40% Far Range]")
-        for response in range(100):
+        while True:
             understood = raw_input("\nReady to start? yes || no\n\nResponse: ").upper().strip()
             if understood == "YES":
                 print breaker
                 start="BEGIN";
+                clear();
                 break
             elif begin == "NO":
                 print ("Okay...just start the game up when you're ready.\n\n");
@@ -99,19 +144,21 @@ for response in range(100):
                 invalid()
 #Beginning of Actual Game Starts Here
     elif start == "BEGIN":
-        for response in range(100):
+        while True:
             print("You wake up, and realize that you\'ve crashed your car.\nYou\'re in an unfimiliar area, and notice how abandoned it seems. \nYou muster the strength to get out of your car and notice the searing pain\nin your head and your side as you walk toward your trunk.\nInside you see a few of your weapons.")
             weapon = raw_input("\nWhich one do you take with you? Bat || Hunting Rifle || Revolver \n\nResponse: ").upper().strip();
             print breaker
+            break
+        break
     else:
         invalid();
 
-for response in range(100):
+while True:
     print ("You hold the %s at your side as you scan the area.\nYou notice a run down medical center to your right and a boarded up gun shop.\nYou're badly wounded, but your %s might not be enough to face the dangers to come." %(weapon,weapon))
     area = raw_input("\nWhere do you want to go? Hospital || Gun Shop \n\nResponse: ").upper().strip();
     print breaker;
     if area == "HOSPITAL":
-        for response in range(100):
+        while True:
             print("As you walk along through the halls, you can clearly see the hospital has been trashed in some kind of scuffle.\nYou begin to wonder what might have happened here. Suddenly you hear a noise behind the door next to you.");
             reaction = raw_input("How do you react? Ignore || Check it out || Run away \n\nResponse: ").upper().strip();
             print breaker
@@ -133,7 +180,7 @@ for response in range(100):
     else:
         invalid();
 
-for response in range(100):
+while True:
     print breaker
     print ("Turning the corner, you see a woman at the far end of the hall.\nShe\'s being attacked, grappling with someone around the corner who is clearly overpowering her.");
     assist = raw_input("What do you want to do? Assist || Run away \n\nResponse: ").upper().strip();

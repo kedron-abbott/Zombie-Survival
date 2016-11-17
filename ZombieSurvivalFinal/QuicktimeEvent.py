@@ -2,7 +2,7 @@ import datetime, time
 
 stop = "go"
 start_time = datetime.datetime.now()
-end_time = start_time + datetime.timedelta(seconds=10)
+end_time = start_time + datetime.timedelta(seconds=difficulty)
 
 while True:
     key = raw_input("type: ")
