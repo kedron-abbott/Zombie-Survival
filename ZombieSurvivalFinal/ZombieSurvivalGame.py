@@ -34,6 +34,16 @@ def slowPrint(text,speed):
         time.sleep(random.random()*10.0/speed)
     print ''
 
+def loadingAnimation(cycles):
+    clear()
+    for loop in range(cycles):
+        print("loading.")
+        newScene(.5)
+        print("loading..")
+        newScene(.5)
+        print("loading...")
+        newScene(.5)    
+
 
 #Classes:
 #i wish i knew how to make these properly :( // it would probably help y'know
@@ -83,7 +93,7 @@ while True:
     print('''
 
       _____                        __      __           _               __        ___
-     |  __ \                       \ \    / /          (_)             /_ |      / _ \  
+     |  __ \                       \ \    / /          (_)             /_ |      / _ \
      | |  | | ___ _ __ ___   ___    \ \  / /__ _ __ ___ _  ___  _ __    | |     | | | |
      | |  | |/ _ \ '_ ` _ \ / _ \    \ \/ / _ \ '__/ __| |/ _ \| '_ \   | |     | | | |
      | |__| |  __/ | | | | | (_) |    \  /  __/ |  \__ \ | (_) | | | |  | |  _  | |_| |
@@ -93,7 +103,7 @@ while True:
     print breaker
     if start == "RULES":
         while True:
-            begin = raw_input("Every decision you make is a life and death situation...and your time is limited. \nThe choices you make now determine your fate.  \n\nAre you ready to begin? yes || no\n\nResponse: ").upper().strip()
+            begin = raw_input("Every decision and action can result in the game changing....and your time is limited. \nThe choices you make determine your fate.  \n\nAre you ready to begin? yes || no\n\nResponse: ").upper().strip()
             print breaker
             if begin == "YES":
                 start = "BEGIN";

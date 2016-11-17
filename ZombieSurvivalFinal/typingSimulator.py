@@ -8,5 +8,5 @@ def slowType(text,speed):
         time.sleep(random.random()*10.0/speed)
     print ''
 
-slowType("Seven actual words about what??? \"...sure\" says Dustin",25)
-slowType("Seven actual words about what??? \"...sure\" says Dustin",75)
+slowType("The quick brown fox jumped over the lazy river",25)
+slowType("The quick brown fox jumped over the lazy river",75)
