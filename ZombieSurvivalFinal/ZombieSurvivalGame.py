@@ -52,7 +52,6 @@ def loadingAnimation(cycles):
 #Statuses
 lockStatus = "locked"
 markStatus = "lost"
-
 doorStatus = "unknown"
 
 #typing speeds
