@@ -42,7 +42,7 @@ def loadingAnimation(cycles):
         print("loading..")
         newScene(.5)
         print("loading...")
-        newScene(.5)    
+        newScene(.5)
 
 
 #Classes:
@@ -52,10 +52,15 @@ def loadingAnimation(cycles):
 #Statuses
 lockStatus = "locked"
 markStatus = "lost"
+
 doorStatus = "unknown"
 
-#difficulty
+#typing speeds
+slow = 40
+reg = 65
+fast = 80
 
+#difficulty
 easy = 25
 medium = 15
 hard = 8
@@ -162,6 +167,7 @@ while True:
                 invalid()
 #Beginning of Actual Game Starts Here
     elif start == "BEGIN":
+        loadingAnimation(3)
         while True:
             print("You wake up, and realize that you\'ve crashed your car.\nYou\'re in an unfimiliar area, and notice how abandoned it seems. \nYou muster the strength to get out of your car and notice the searing pain\nin your head and your side as you walk toward your trunk.\nInside you see a few of your weapons.")
             weapon = raw_input("\nWhich one do you take with you? Bat || Hunting Rifle || Revolver \n\nResponse: ").upper().strip();
