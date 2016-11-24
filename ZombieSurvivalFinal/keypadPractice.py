@@ -42,4 +42,4 @@ if accept == "yes":
         else:
             print wrong
 
-print ("door is ") + lockStatus
+print ("\ndoor is ") + lockStatus

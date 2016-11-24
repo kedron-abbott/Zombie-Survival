@@ -43,6 +43,11 @@ def loadingAnimation(cycles):
         newScene(.5)
         print("loading...")
         newScene(.5)
+def kevinIntro(x):
+    slowPrint("Name: Kevin",x)
+    slowPrint("Age: 42",x)
+    slowPrint("Occupation: Police Officer ",x)
+    slowPrint("Height: 5\'10",x)
 
 
 #Classes:
@@ -63,6 +68,7 @@ fast = 80
 easy = 25
 medium = 15
 hard = 8
+
 #default
 difficulty = medium
 
@@ -97,7 +103,7 @@ while True:
     print('''
 
       _____                        __      __           _               __        ___
-     |  __ \                       \ \    / /          (_)             /_ |      / _ \
+     |  __ \                       \ \    / /          (_)             /_ |      / _ \ .
      | |  | | ___ _ __ ___   ___    \ \  / /__ _ __ ___ _  ___  _ __    | |     | | | |
      | |  | |/ _ \ '_ ` _ \ / _ \    \ \/ / _ \ '__/ __| |/ _ \| '_ \   | |     | | | |
      | |__| |  __/ | | | | | (_) |    \  /  __/ |  \__ \ | (_) | | | |  | |  _  | |_| |
@@ -167,6 +173,8 @@ while True:
 #Beginning of Actual Game Starts Here
     elif start == "BEGIN":
         loadingAnimation(3)
+        kevinIntro(54)
+        newScene(3)
         while True:
             print("You wake up, and realize that you\'ve crashed your car.\nYou\'re in an unfimiliar area, and notice how abandoned it seems. \nYou muster the strength to get out of your car and notice the searing pain\nin your head and your side as you walk toward your trunk.\nInside you see a few of your weapons.")
             weapon = raw_input("\nWhich one do you take with you? Bat || Hunting Rifle || Revolver \n\nResponse: ").upper().strip();

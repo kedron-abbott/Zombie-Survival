@@ -11,21 +11,21 @@ def dropHealth(percent):
     print ("Health = ") + str(health) + ('%')
     print('\n-----------------------------------------\n')
 
-
+def died():
+    print "You died..."
 
 def attack():
-    shot = int(random.choice(chance))
-    if (shot % 2 == 1):
-        print ("you hit")
+    if health > 0:
+        shot = int(random.choice(chance))
+        if (shot % 2 == 1):
+            print ("you hit")
+        else:
+            print ("you missed and a zombie hit you")
+            dropHealth(20)
     else:
-        print ("you missed and a zombie hit you")
-        dropHealth(20)
+        died()
 
 
 print ("fight zombie")
 
-
-
-while health > 0:
-    attack()
-print ("You died")
+attack()
