@@ -124,6 +124,7 @@ hardShot = [1,2,3,4,5,6,7,8,9] #44% Accuracy
 difficulty = medium
 healthLoss = medHealthLoss
 shootingAccuracy = medShot
+weapon = "gun"
 
 
 #timer variables
@@ -356,3 +357,68 @@ while True:
             break
         else:
             invalid();
+slowPrint("I begin to hear the snarls of several rotters around the corner; no telling how many there could be.", go)
+print breaker
+slowPrint("Sound attracts them..", slow)
+newScene(1)
+slowPrint("On the wall, a little further up, I see a fire axe in its glass casing.", fast)
+print "\n\nIN CASE OF EMERGENCY"
+print """
+
+    /'-./\_
+   :    ||,>
+    \.-'||
+        ||
+        ||
+        ||
+        """
+print "   BREAK GLASS\n\n"
+slowPrint("I could definitely use that in a situation like this, I don't need the extra attention. But I'd have to leave my gun..", fast)
+
+while True:
+    weaponChoice = raw_input("\nTake Axe || Keep Gun \n\nResponse: ").upper().strip();
+    if weaponChoice == "TAKE AXE" or "AXE":
+        slowPrint("This'll definitely come in handy. I can't waste any ammo, and I won't have to make any noise either.", go)
+        weapon = "axe"
+        break
+    elif weaponChoice == "KEEP GUN" or "GUN":
+        slowPrint("There's no way I can give up the security of this thing - it's gotten me out of some sticky situations. \nBut I'm low on ammo -  I need to make every shot count.")
+        break
+    else:
+        invalid()
+
+if zombieStatus == "alive":
+    slowPrint("Time to finish this guy off",fast)
+    while zombieStatus != "dead":
+        killZombie = ("\nKill Zombie \n\nResponse: ").upper().strip();
+        if killZombie == "KILL ZOMBIE" or "KILL":
+            if weapon == "axe":
+                slowPrint("I wait for the rotter to get just close enough before swinging the axe right into its forehead.", go)
+                zombieStatus = "dead"
+                break
+            else:
+                shoot()
+                if hit == True:
+                    slowPrint("\nI take aim, and send one flying right between the eyes - clean shot; that's the only way to bring them down.", fast)
+                    zombieStatus = "dead"
+                    print str(ammoRemaining) + " bullets left.. I've got to be more careful."
+                    break
+                if hit == False:
+                    slowPrint("\nI take aim, but the rotter was too fast! It knocked my arm away just as I shot, putting a hole in the ceiling.", fast)
+                    dropHealth(healthLoss)
+newScene(1)
+slowPrint("I still hear them around the corner. For my own safety, I just need to focus on getting out of h--\n", go)
+slowPrint("\"HELP!!! SOMEONE PLEASE HELP! Get back..GET BACK!\"", reg)
+slowPrint("\n\nI check out the sound. There's a man in scrubs weidling an arm leg, surrounded by 4 rotters.", go)
+while True:
+    slowPrint("\nAlthough it is my fault he's in this mess - and he's clearly struggling - he's keeping the horde busy, making it easy for me to slip out.", fast)
+    saveMark = ("\nRescue || Escape \n\nResponse: ").upper().strip();
+    if saveMark == "RESCUE":
+        slowPrint("It's the right thing to do. I need to help him!", go)
+        action = raw_input("\nDistract || Attack \n\nResponse: ").upper().strip();
+        
+    elif saveMark == "ESCPAE":
+        slowPrint("He should have been more prepared, especially in times like this.", go)
+        slowPrint("\nI need to worry about myself..", reg)
+    else:
+        invalid()
