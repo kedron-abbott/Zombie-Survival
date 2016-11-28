@@ -43,11 +43,45 @@ def loadingAnimation(cycles):
         newScene(.5)
         print("loading...")
         newScene(.5)
+
+def dropHealth(percent):
+    global health
+    global healthLoss
+    percent = healthLoss
+    health = health - percent
+    print breaker
+    print ("You lost ") + str(percent) + ('%') + (" of your health")
+    print ("Current Health = ") + str(health) + ('%')
+    print breaker
+    if health < 1:
+        print ("You have died")
+        gameOver()
+
 def kevinIntro(x):
     slowPrint("Name: Kevin",x)
     slowPrint("Age: 42",x)
     slowPrint("Occupation: Police Officer ",x)
     slowPrint("Height: 5\'10",x)
+    newScene(3)
+    slowPrint("Before walking in, I release the magazine of my pistol one last time to ensure all seven bullets are still in there.", 67)
+    sleep(.8)
+    slowPrint("...They are.",63)
+    newScene(2)
+
+def shoot():
+    global shotsFired
+    global ammoRemaining
+    global hit
+    hit = False
+    shotsFired = shotsFired + 1
+    if ammoRemaining < 1:
+        print ("My weapon clicks but doesn't fire...I'm out of ammo.")
+        dry = True
+    else:
+        ammoRemaining = ammoRemaining - 1
+        shoot = int(random.choice(shootingAccuracy))
+        if (shoot % 2 == 0):
+            hit = True
 
 
 #Classes:
@@ -58,34 +92,44 @@ def kevinIntro(x):
 lockStatus = "locked"
 markStatus = "lost"
 doorStatus = "unknown"
+shotsFired = 0
+health = 100
+hit = False
+ammoRemaining = 7
+dry = False
+zombieStatus = "alive"
+run = 0
 
 #typing speeds
 slow = 40
 reg = 65
 fast = 80
+go = 107
 
 #difficulty
 easy = 25
 medium = 15
 hard = 8
 
+easyHealthLoss = 15
+medHealthLoss = 20
+hardHeatlhLoss = 35
+
+#Weapon Accuracy || odd number = miss / even number = hit
+easyShot = [0,1,2,4,6,8,10,12] #87% Accuracy
+medShot = [0,1,2,3,4,5,7,8,10] #66% Accuracy
+hardShot = [1,2,3,4,5,6,7,8,9] #44% Accuracy
+
 #default
 difficulty = medium
+healthLoss = medHealthLoss
+shootingAccuracy = medShot
 
+
+#timer variables
 stop = "go"
 start_time = datetime.datetime.now()
 end_time = start_time + datetime.timedelta(seconds=difficulty)
-
-
-#Weapon Accuracy || odd number = miss / even number = hit
-CloseBatAccuracy = [0,1,2,4,6,8,10] #86% Accuracy
-CloseHuntingAccuracy = [1,2,3,4,5,6,7,8,9] #44% Accuracy
-CloseRevolverAccuracy = [1,2,3,4,6,8] #80% Accuracy
-
-FarBatAccuracy = [1] #0% Accuracy
-FarHuntingAccuracy = [0,1,2,4,6,8,10] #86% Accuracy
-FarRevolverAccuracy = [1,2,3,4,5] #40% Accuracy
-
 #Easy Access
     # closeShot = int(random.choice(closerange));
     # longShot = int(random.choice(longrange));
@@ -94,7 +138,6 @@ FarRevolverAccuracy = [1,2,3,4,5] #40% Accuracy
 
 # if (num % 2 == 0): ~ even
 # else: ~ odd
-health = 100
 
 #Start Screen
 
@@ -132,18 +175,27 @@ while True:
             mode = raw_input("\nResponse: ").upper().strip()
             if mode == "EASY":
                 difficulty = easy
+                healthLoss = easyHealthLoss
+                shootingAccuracy = easyShot
+                print healthLoss
                 print difficulty
                 newScene(2)
                 break
 
             elif mode == "HARD":
                 difficulty = hard
+                healthLoss = hardHeatlhLoss
+                shootingAccuracy = hardShot
+                print healthLoss
                 print difficulty
                 newScene(5)
                 break
 
             elif mode == "MED" or "MEDIUM":
                 difficulty = medium
+                healthLoss = medHealthLoss
+                shootingAccuracy = medShot
+                print healthLoss
                 print difficulty
                 newScene(3)
                 break
@@ -174,93 +226,133 @@ while True:
     elif start == "BEGIN":
         loadingAnimation(3)
         kevinIntro(54)
-        newScene(3)
         while True:
-            print("You wake up, and realize that you\'ve crashed your car.\nYou\'re in an unfimiliar area, and notice how abandoned it seems. \nYou muster the strength to get out of your car and notice the searing pain\nin your head and your side as you walk toward your trunk.\nInside you see a few of your weapons.")
-            weapon = raw_input("\nWhich one do you take with you? Bat || Hunting Rifle || Revolver \n\nResponse: ").upper().strip();
+            slowPrint("There's shattered glass and tattered scrubs everywhere. It appears like people left in a hurry - but to where?", go)
+            inspect = raw_input("\nAlthough this place has been abandoned for days, there's blood on that medical cart. Inspect || Continue \n\nResponse: ").upper().strip();
             print breaker
-            break
-        break
-    else:
-        invalid();
-
-while True:
-    print ("You hold the %s at your side as you scan the area.\nYou notice a run down medical center to your right and a boarded up gun shop.\nYou're badly wounded, but your %s might not be enough to face the dangers to come." %(weapon,weapon))
-    area = raw_input("\nWhere do you want to go? Hospital || Gun Shop \n\nResponse: ").upper().strip();
-    print breaker;
-    if area == "HOSPITAL":
-        while True:
-            print("As you walk along through the halls, you can clearly see the hospital has been trashed in some kind of scuffle.\nYou begin to wonder what might have happened here. Suddenly you hear a noise behind the door next to you.");
-            reaction = raw_input("How do you react? Ignore || Check it out || Run away \n\nResponse: ").upper().strip();
-            print breaker
-            if reaction == "IGNORE":
-                print("You choose to ignore the sound and continue walking down the hall.\nThe idea of what could\'ve been behind that door singes your mind, but you manage to shake off the thought.\n");
-                break
-            elif reaction == "CHECK IT OUT":
-                print("You decide you want investigate the mysterious noise. As you approach the door, you tighten the grip you have on your %s" %weapon);
-                print("\nAs you slowly open the door, you ease yourself into the room. It\'s dark, and as you take a few steps into the room, the noise grows louder.")
-                print("\nYou look to your left to discover a man fastening a tourniquet around his right leg, and you can't help but wince.")
-                print("\n\n\"Are...are you alive?\" the man asks. You tentatively nod your head yes.")
-                health = 0
-                print health #FINISH THIS PART
-                break
-            elif reaction == "RUN AWAY":
-                print("ran away"); #FINISH THIS PART
-                break;
-            else:
-                invalid()
-        break;
-    else:
-        invalid();
-
-while True:
-    print breaker
-    print ("Turning the corner, you see a woman at the far end of the hall.\nShe\'s being attacked, grappling with someone around the corner who is clearly overpowering her.");
-    assist = raw_input("What do you want to do? Assist || Run away \n\nResponse: ").upper().strip();
-    if assist == "ASSIST":
-        print("You start to approach them, and pick up speed as the woman struggles and lets out a blood-curdling scream.");
-        print("\nYou yell out, \"HEY! Get off of her!\" but it\'s too late.\nThe woman is lying in a pool of red and the attacker holds her intestines by its teeth.\nSuddenly the attacker looks up and starts to crawl over her body towards you and sprints!")
-        print("\nYou have little time to decide what to do; before you even know it, your %s is raised to attack." % weapon)
-        break
-    elif assist == "RUN AWAY":
-        print("you punk"); #FINISH THIS PART
-        break
-    else:
-        invalid();
-if (closeShot % 2 == 0):
-    print breaker
-    if closerange == CloseBatAccuracy:
-        print("You bash the moster in the side, and it goes down hard.")
-        print breaker
-    else:
-        print ("You shoot the monster in the torso, and it files back and hits the floor hard.");
-        print breaker
-
-else:
-    print breaker
-    print("You missed! The attacker was too fast for you, and you find yourself with the monster on top of you.\nYou struggle to break free, but the monster is much too strong and your %s has slid out of your hand.\nThe beast rips into your neck, feasting on your tendons, and you realise there is nothing you can do." %weapon);
-    gameOver()
-
-for response in range (100):
-    print("You take a brief moment to try and process what just happened, but before you can exhale, the monster is back on its feet.")
-    reaction2 = raw_input("How do you react? Attack || Run Away \n\nResponse: ").upper().strip();
-    if reaction2 == "ATTACK":
-        print breaker
-        print ("You attack again, but this time you aim for the head...")
-        if (closeShot2 % 2 == 0):
-            if closerange == CloseBatAccuracy:
-                print("You focus all your strength into smashing the monster\'s skull. You hear a heavy crack, and the monster goes down.");
+            if inspect == "INSPECT":
+                slowPrint("\nSweeping my fingers across the side, it's clear that this blood is still fresh.", reg)
                 print breaker
-                break;
+                inspect = "CONTINUE"
+            elif inspect == "CONTINUE":
+                slowPrint("I scan the area, and a broken light fixture catches my attention.\n", go)
+                break
+
             else:
-                print("You manage to get a successful headshot. The beast goes down.\n")
+                print invalid()
+            if inspect =="CONTINUE":
+                slowPrint("I scan the area, and a broken light fixture catches my attention.\n", go)
+                break
+        break
+    else:
+        invalid();
+
+while True:
+    slowPrint("It's creaking loud and the flickering light is revealing something...it's a notice board - one of the only things that hasn't been damaged here.", go)
+    inspect = raw_input("\nInspect || Continue \n\nResponse: ").upper().strip();
+    print breaker;
+    if inspect == "INSPECT":
+        slowPrint("The map reads:",fast)
+        slowPrint("\n*SANCTUARIES*", go)
+        slowPrint("Reliquiae: 518 miles away", reg)
+        slowPrint("Unum: 307 miles away", reg)
+        slowPrint("Venturis: 100 miles away", reg)
+        inspect == "CONTINUE"
+        break;
+    elif inspect == "CONTINUE":
+        break
+    else:
+        invalid();
+
+
+while True:
+    print breaker
+    if zombieStatus == "dead":
+        break
+    elif run > 0:
+        break
+    else:
+        slowPrint("Turning away from the board, I feel a brush against my arm and my body tenses. It's a rotter.. ", fast)
+        action = raw_input("\nShoot || Push || Run \n\nResponse: ").upper().strip();
+        if action == "SHOOT":
+            shoot()
+            if hit == True:
+                slowPrint("\nI take aim, and send one flying right between the eyes - clean shot; that's the only way to bring them down.", fast)
+                zombieStatus = "dead"
+                break
+            if hit == False:
+                slowPrint("\nI take aim, but the rotter was too fast! It knocked my arm away just as I shot, putting a hole in the ceiling.", fast)
+                dropHealth(healthLoss)
+                while hit == False:
+                    action = raw_input("\nI can't let my guard down around these things! \nShoot || Push || Run \n\nResponse: ").upper().strip();
+                    if action == "SHOOT":
+                        shoot()
+                        if hit == True:
+                            slowPrint("\nI take aim, and send one flying right between the eyes - clean shot; that's the only way to bring them down.", fast)
+                            zombieStatus = "dead"
+                            break
+                        if hit == False:
+                            slowPrint("\nI shoot, but miss again. The rotter scratches me, and I start to bleed. I tighten the grip on my weapon.", fast)
+                            dropHealth(healthLoss)
+                    else:
+                        break
+
+
+
+        elif action == "PUSH":
+            slowPrint("I kick it hard in the chest, giving myself just enough time to find my bearings and make my next move.", go)
+            print breaker
+            while zombieStatus == "alive":
+                action = raw_input("\nI can't let my guard down around these things! \nShoot || Run \n\nResponse: ").upper().strip();
+                if action == "SHOOT":
+                    shoot()
+                    if hit == True:
+                        slowPrint("\nI take aim, and send one flying right between the eyes - clean shot; that's the only way to bring them down.", fast)
+                        zombieStatus = "dead"
+                        break
+                    elif hit == False:
+                        slowPrint("\nI shoot, but miss again. The rotter scratches me, and I start to bleed. I tighten the grip on my weapon.", fast)
+                        dropHealth(healthLoss)
+                elif action == "RUN":
+                    run = 1
+                    break
+        elif action == "RUN":
+            slowPrint("I make a dash for the door, nudging the rotter out of the way. There's no need to waste any of my bullets just yet..", go)
+            slowPrint("As it circles around to grasp at me, it misses and pulls the fire alarm instead..", fast)
+            slowPrint("\nHeavy lights strobe, and the deafening sound makes it hard to keep moving. I trip and look back to see the rotter approaching me as I pull shards of glass from my arm.", go)
+            dropHealth(healthLoss)
+            while zombieStatus == "alive":
+                action = raw_input("\nI can't let my guard down around these things! \nShoot || Push || Run \n\nResponse: ").upper().strip();
+                if action == "SHOOT":
+                    shoot()
+                    if hit == True:
+                        slowPrint("\nI take aim, and send one flying right between the eyes - clean shot; that's the only way to bring them down.", fast)
+                        zombieStatus = "dead"
+                        break
+                    elif hit == False:
+                        slowPrint("\nI shoot, but miss again. The rotter scratches me, and I start to bleed. I tighten the grip on my weapon.", fast)
+                        dropHealth(healthLoss)
+                elif action == "PUSH":
+                    slowPrint("I kick it hard in the chest, giving myself just enough time to find my bearings and make my next move.", go)
+                    while zombieStatus == "alive":
+                        action = raw_input("\nI can't let my guard down around these things! \nShoot || Run \n\nResponse: ").upper().strip();
+                        if action == "SHOOT":
+                            shoot()
+                            if hit == True:
+                                slowPrint("\nI take aim, and send one flying right between the eyes - clean shot; that's the only way to bring them down.", fast)
+                                zombieStatus = "dead"
+                                break
+                            elif hit == False:
+                                slowPrint("\nI shoot, but miss again. The rotter scratches me, and I start to bleed. I tighten the grip on my weapon.", fast)
+                                dropHealth(healthLoss)
+                        elif action == "RUN":
+                            break
+
+                elif action == "RUN":
+                    slowPrint("I manage to get myself up before the rotter can get a hold of me.", go)
+                    break
+
+
             break
         else:
-            print breaker
-            print("You missed! The attacker was too fast for you, and you find yourself with the monster on top of you.\nYou struggle to break free, but the monster is much too strong for you and your %s has slid out of your hand.\nThe beast rips into your neck with its teeth, feasting on your tendons, and you realise there is nothing you can do.");
-            gameOver()
-    break;
-else:
-    invalid();
-
-print ("dead")
+            invalid();
