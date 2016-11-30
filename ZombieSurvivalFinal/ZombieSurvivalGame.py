@@ -416,9 +416,11 @@ while True:
     if saveMark == "RESCUE":
         slowPrint("It's the right thing to do. I need to help him!", go)
         action = raw_input("\nDistract || Attack \n\nResponse: ").upper().strip();
-        
+        break
+
     elif saveMark == "ESCPAE":
         slowPrint("He should have been more prepared, especially in times like this.", go)
         slowPrint("\nI need to worry about myself..", reg)
+        break
     else:
         invalid()
